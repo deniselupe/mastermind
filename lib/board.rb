@@ -1,12 +1,19 @@
+# frozen_string_literal: true
+
+require_relative 'stylable'
+
+# This class defines actions that the game board takes during a game session of Mastermind
 class Board
-  def color_peg(number)
-    {
-      1 => ' 1 '.yellow,
-      2 => ' 2 '.blue,
-      3 => ' 3 '.purple,
-      4 => ' 4 '.green,
-      5 => ' 5 '.cyan,
-      6 => ' 6 '.red
-    }[number]
+  attr_reader :board
+
+  include Stylable::Board
+
+  def initialize(rows)
+    @board = []
+    board_creator(rows)
+  end
+
+  def board_creator(rows)
+    rows.times { @board.push({guess: Array.new(4), keys: Array.new(4)}) }
   end
 end
