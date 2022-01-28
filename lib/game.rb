@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'instructions'
+require_relative 'board'
 require 'io/console'
 
 # This is the class that controls the flow of the game
