@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This modules provides an introduction to the game as well as collect session details
+# This module provides an introduction to the game as well as collect session details
 module Instructions
   def introductions
     puts <<~INSTRUCTIONS_ONE

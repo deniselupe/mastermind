@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-# This modules provides the tools to create and style a board game for the CLI
+# This module provides the tools to create and style a board game for the CLI
 module Stylable
+  # This module lists the different unicodes needed to create a game board
   module Board
     L_TOP_CORNER = "\u250c"
     R_TOP_CORNER = "\u2510"
@@ -18,5 +19,8 @@ module Stylable
     KEY_PEG = "\u25CF"
     EMPTY_COLOR = "\u3007"
     COLOR_PEG = "\u2B24"
+    TOP_ROW = "#{L_TOP_CORNER}#{HOR * 13}#{HOR_DOWN}#{HOR * 9}#{R_TOP_CORNER}"
+    MIDDLE_ROW = "#{VERT_L}#{HOR * 13}#{HOR_VERT}#{HOR * 9}#{VERT_R}"
+    BOTTOM_ROW = "#{L_BOT_CORNER}#{HOR * 13}#{HOR_UP}#{HOR * 9}#{R_BOT_CORNER}"
   end
 end

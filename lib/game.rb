@@ -21,5 +21,6 @@ class Game
     @rounds = number_of_rounds
     @guesses = number_of_guesses
     @board = Board.new(guesses)
+    @board.print_board
   end
 end

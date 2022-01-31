@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This modules provides the tools to create and style a board game for the CLI
+# This module provides the tools to create and style a board game for the CLI
 module Stylable
   # This module monkey patches core class String by adding methods that manipulate text color
   module String
