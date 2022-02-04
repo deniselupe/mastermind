@@ -1,26 +1,24 @@
 # frozen_string_literal: true
 
-require_relative 'instructions'
-require_relative 'board'
+require_relative 'prompts'
+require_relative 'stylable'
+require_relative 'human-breaker'
 require 'io/console'
+
+# Activating Monkey Patch so that CLI can have colored text
+String.include Stylable::String
 
 # This is the class that controls the flow of the game
 class Game
-  attr_reader :player_role, :rounds, :guesses, :board
+  attr_reader :rounds, :guess_num, :player_role
 
-  include Instructions
-
-  def initialize
-    @colors = [1, 2, 3, 4, 5, 6]
-    @possible_outcomes = @colors.repeated_permutation(4).to_a
-  end
+  include Prompts
 
   def play
     introductions
     @player_role = role_selector
     @rounds = number_of_rounds
-    @guesses = number_of_guesses
-    @board = Board.new(guesses)
-    @board.print_board
+    @guess_num = number_of_guesses
+    HumanBreaker.new(@rounds, @guess_num).play
   end
 end

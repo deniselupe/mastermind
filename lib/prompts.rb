@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This module provides an introduction to the game as well as collect session details
-module Instructions
+module Prompts
   def introductions
     puts <<~INSTRUCTIONS_ONE
       Welcome to Mastermind!
@@ -19,7 +19,7 @@ module Instructions
       - #{'Yellow'.yellow}, #{'Blue'.blue}, #{'Purple'.purple}, #{'Green'.green}, #{'Cyan'.cyan}, #{'Red'.red}
     INSTRUCTIONS_ONE
 
-    next_page
+    Stylable.next_page
 
     puts <<~INSTRUCTIONS_TWO
       The #{'CODE BREAKER'.green} will have between 8 and 12 turns to guess
@@ -36,43 +36,30 @@ module Instructions
       the existence of a correct color peg placed in the wrong position.
     INSTRUCTIONS_TWO
 
-    next_page
-  end
-
-  def next_page
-    print "\nPress 'ENTER' to continue ".cyan
-    key = $stdin.noecho(&:gets)
-
-    key = $stdin.noecho(&:gets) until key == "\n"
-
-    clear_screen
-  end
-
-  def clear_screen
-    print "\e[2J\e[H"
+    Stylable.next_page
   end
 
   def role_selector
-    clear_screen
+    Stylable.clear_screen
     puts 'This game has two different player roles:'
     puts "\t1. Play as the #{'CODE BREAKER'.green} to try and guess the randomly generated code"
     puts "\t2. Create the code as the #{'CODE MAKER'.purple} and try to outsmart the NPC"
     print "\nSelect your role (1 or 2): "
 
     until (role = gets.chomp).match?(/^[1-2]$/)
-      clear_screen
+      Stylable.clear_screen
       puts 'This game has two different player roles:'
       puts "\t1. Play as the #{'CODE BREAKER'.green} to try and guess the randomly generated code"
       puts "\t2. Create the code as the #{'CODE MAKER'.purple} and try to outsmart the NPC"
-      print "\nYou entered an invalid option, please select your role (1: Code Braker, 2: Code Maker): "
+      print "\nInvalid option, please select your role (1: #{'Code Breaker'.green}, 2: #{'Code Maker'.purple}): "
     end
 
     role
   end
 
   def number_of_rounds
-    clear_screen
-    print 'How many rounds would you like to play? (NOTE: Only EVEN values): '
+    Stylable.line_separator
+    print "\nHow many rounds would you like to play? (NOTE: Only EVEN values): "
 
     until (rounds = gets.chomp.to_i).even? && !rounds.zero?
       print "\nThis is not an even amount of rounds, please enter an even amount of rounds to play: "
@@ -82,13 +69,24 @@ module Instructions
   end
 
   def number_of_guesses
-    clear_screen
-    print 'How many guesses would you like the Code Breaker to make (NOTE: Between 8 to 12 guesses): '
+    Stylable.line_separator
+    print "\nHow many guesses would you like the Code Breaker to make (NOTE: Between 8 to 12 guesses): "
 
     until (guesses = gets.chomp.to_i).between?(8, 12)
       print "\nSorry, not possible. Please enter a number of guesses that is between 8 and 12: "
     end
 
     guesses
+  end
+
+  def input_guess
+    Stylable.line_separator
+    print "\nInput your guess: "
+
+    until (guess = gets.chomp).match?(/^[1-6]{4}$/)
+      print "\nThis is not a valid guess, enter a guess that is 4 characters long and is between 1 and 6: "
+    end
+
+    guess.split('')
   end
 end
