@@ -3,8 +3,9 @@
 # This module provides instructions to the game as well as the different player roles
 module Instructions
   def introductions
+    Stylable.clear_screen
     puts <<~INSTRUCTIONS_ONE
-      WELCOME TO MASTERMIND!
+      #{'WELCOME TO MASTERMIND!'.bold.underline}
 
       Mastermind is a code-breaking game between two players:
       1. Code Maker
@@ -52,11 +53,11 @@ module Instructions
       HOW TO WIN:
 
       After each guess, the #{'CODE MAKER'.purple} will provide feedback by placing
-      either black or white key pegs in the small holes located beside
+      either red or white key pegs in the small holes located beside
       the guess' row. The #{'CODE BREAKER'.green} will use this feedback to determine
       the next best guess.
 
-      - A black key peg is placed for each color peg within the guess that matches the
+      - A red key peg is placed for each color peg within the guess that matches the
         master code's color and position.
       - A white key peg is placed for each color peg that is correct in color but in the
         wrong position.
@@ -66,8 +67,9 @@ module Instructions
   end
 
   def human_instructions
+    Stylable.clear_screen
     puts <<~HUMAN_BREAKER_INSTRUCTIONS
-      THE COMPUTER HAS CREATED THE MASTER CODE
+      #{'THE COMPUTER HAS CREATED THE MASTER CODE'.bold.underline.red}
 
       Remember:
         - The Master Code is a pattern of 4 Color Pegs

@@ -4,7 +4,7 @@ require_relative 'stylable'
 
 # This class defines actions that the game board takes during a game session of Mastermind
 class Board
-  attr_reader :board, :guess_num
+  attr_reader :board
 
   include Stylable::Board
 
@@ -29,6 +29,7 @@ class Board
   end
 
   def print_board
+    Stylable.clear_screen
     board_row = []
 
     @board.each do |row|
