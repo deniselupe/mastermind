@@ -44,11 +44,14 @@ class Board
   end
 
   def update_guess_row(guess, guess_num)
-    index = 0
+    guess.each_with_index do |num, index|
+      @board[guess_num][:guess][index] = "#{peg_colors(num)} "
+    end
+  end
 
-    for i in guess
-      @board[guess_num][:guess][index] = "#{peg_colors(i)} "
-      index += 1
+  def update_key_row(keys, guess_num)
+    keys.each_with_index do |key, index|
+      @board[guess_num][:keys][index] = key
     end
   end
 end
