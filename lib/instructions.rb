@@ -66,7 +66,7 @@ module Instructions
     Stylable.next_page
   end
 
-  def human_instructions
+  def breaker_instructions
     Stylable.clear_screen
     puts <<~HUMAN_BREAKER_INSTRUCTIONS
       #{'THE COMPUTER HAS CREATED THE MASTER CODE'.bold.underline.red}
@@ -86,5 +86,8 @@ module Instructions
     HUMAN_BREAKER_INSTRUCTIONS
 
     Stylable.next_page
+  end
+
+  def maker_instructions
   end
 end
