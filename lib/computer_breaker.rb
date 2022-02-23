@@ -12,14 +12,18 @@ class ComputerBreaker < CodeBreaker
   def play
     maker_instructions
     @master_code = input_code
-    @board.print_board
 
     until @guess_num.negative? || @winner == true
+      @board.print_board
+      puts "\nComputer is thinking of a guess...".cyan
+      sleep 4
       @guess = computer_guess
       compare_guess
       @board.print_board
-      puts "\nCOMPUTER GUESSED: #{@guess.join}"
+      puts "\nMASTER CODE: #{@master_code.join('')}".cyan
+      puts "COMPUTER GUESSED: #{@guess.join}".cyan
       @guess_num -= 1
+      sleep 4
     end
 
     win_eval
