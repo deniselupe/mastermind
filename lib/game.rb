@@ -3,6 +3,7 @@
 require_relative 'instructions'
 require_relative 'stylable'
 require_relative 'human_breaker'
+require_relative 'computer_breaker'
 require 'io/console'
 
 # Activating Monkey Patch so that CLI can have colored text
@@ -18,7 +19,12 @@ class Game
     introductions
     @player_role = role_selector
     @guess_num = number_of_guesses
-    HumanBreaker.new(@guess_num).play
+
+    if @player_role == '1'
+      HumanBreaker.new(@guess_num).play
+    elsif @player_role == '2'
+      ComputerBreaker.new(@guess_num).play
+    end
   end
 
   def role_selector

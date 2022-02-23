@@ -40,4 +40,16 @@ class HumanBreaker < CodeBreaker
 
     guess.split('')
   end
+
+  # This method verifies if the Code Breaker won, then prints the respective announcement
+  def win_eval
+    @board.print_board
+    puts "\nMASTER CODE: #{@master_code.join('')}".cyan
+
+    if @winner == true
+      puts "\nYOU WIN! YOU CRACKED THE MASTER CODE!".green
+    else
+      puts "\nYOU LOST! YOU ARE OUT OF GUESSES. BETTER LUCK NEXT TIME!".red
+    end
+  end
 end

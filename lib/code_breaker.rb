@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'instructions'
 require_relative 'board'
 
 # This class holds methods that will be used by both Human and Computer subclasses
@@ -45,18 +46,6 @@ class CodeBreaker
         @key_pegs.push(Stylable::Board::KEY_PEG)
         temp_master.delete_at(temp_master.index(num))
       end
-    end
-  end
-
-  # This method verifies if the Code Breaker won, then prints the respective announcement
-  def win_eval
-    @board.print_board
-    puts "\nMASTER CODE: #{@master_code.join('')}".cyan
-
-    if @winner == true
-      puts "\nCONGRATS! YOU CRACKED THE MASTER CODE!".green
-    else
-      puts "\nYOU ARE OUT OF GUESSES. BETTER LUCK NEXT TIME!".red
     end
   end
 end
