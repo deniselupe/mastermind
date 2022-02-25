@@ -20,10 +20,9 @@ class Game
     @player_role = role_selector
     @guess_num = number_of_guesses
 
-    if @player_role == '1'
-      HumanBreaker.new(@guess_num).play
-    elsif @player_role == '2'
-      ComputerBreaker.new(@guess_num).play
+    case @player_role
+    when '1' then HumanBreaker.new(@guess_num).play
+    when '2' then ComputerBreaker.new(@guess_num).play
     end
   end
 

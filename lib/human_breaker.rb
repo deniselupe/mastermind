@@ -9,12 +9,12 @@ class HumanBreaker < CodeBreaker
     breaker_instructions
     @board.print_board
 
-    until @guess_num.negative? || @winner == true
+    until @current_guess_num.negative? || @winner == true
       @guess = input_guess
       compare_guess
       @board.print_board
       puts "\nYOU GUESSED: #{@guess.join}"
-      @guess_num -= 1
+      @current_guess_num -= 1
     end
 
     win_eval
