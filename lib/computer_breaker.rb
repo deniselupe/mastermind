@@ -10,7 +10,6 @@ class ComputerBreaker < CodeBreaker
   end
 
   def play
-    maker_instructions
     @master_code = input_code
 
     until @current_guess_num.negative? || @winner == true
@@ -47,7 +46,8 @@ class ComputerBreaker < CodeBreaker
     if @current_guess_num == @num_of_guesses
       %w[1 1 2 2]
     else
-      %w[1 2 3 4]
+      possibility_eliminator
+      locating_next_guess
     end
   end
 
@@ -67,6 +67,36 @@ class ComputerBreaker < CodeBreaker
     end
 
     @possible_outcomes = remaining_possibilities
+  end
+
+  # This is the logic that determines what the computer's next guess will be
+  # The goal is for the computer to guess the master code within 5 guesses or less
+  def locating_next_guess
+    worst_case_scores = {}
+
+    @possible_outcomes.each do |hypoth_code|
+      hypoth_results = []
+
+      @possible_outcomes.each do |hypoth_guess|
+        temp_code = hypoth_code.map { |val| val }
+        hypoth_result = []
+
+        exact_match(temp_code, hypoth_code, hypoth_guess, hypoth_result)
+        partial_match(temp_code, hypoth_code, hypoth_guess, hypoth_result)
+        hypoth_results.push(hypoth_result)
+      end
+
+      uniq_result_count = hypoth_results.reduce({}) do |obj, val|
+        obj[val] = 0 unless obj[val]
+        obj[val] += 1
+        obj
+      end
+
+      uniq_result_count = uniq_result_count.values.sort { |a, b| a < b ? 1 : 0 }
+      worst_case_scores[hypoth_code] = @possible_outcomes.length - uniq_result_count[0]
+    end
+
+    worst_case_scores.sort_by { |_obj, val| val }.reverse[0][0]
   end
 
   # This method verifies if the Code Breaker won, then prints the respective announcement

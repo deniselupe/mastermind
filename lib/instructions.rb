@@ -87,7 +87,4 @@ module Instructions
 
     Stylable.next_page
   end
-
-  def maker_instructions
-  end
 end
