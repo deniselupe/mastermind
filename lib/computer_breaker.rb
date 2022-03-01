@@ -21,7 +21,7 @@ class ComputerBreaker < CodeBreaker
       @board.print_board
       puts "\nMASTER CODE: #{@master_code.join('')}\nCOMPUTER GUESSED: #{@guess.join}".cyan
       @current_guess_num -= 1
-      sleep 3
+      sleep 3 unless @winner == true
     end
 
     win_eval
@@ -74,26 +74,21 @@ class ComputerBreaker < CodeBreaker
   def locating_next_guess
     worst_case_scores = {}
 
-    @possible_outcomes.each do |hypoth_code|
-      hypoth_results = []
+    @possible_outcomes.each do |possible_code|
+      comparison_results = []
 
-      @possible_outcomes.each do |hypoth_guess|
-        temp_code = hypoth_code.map { |val| val }
-        hypoth_result = []
+      @possible_outcomes.each do |possible_guess|
+        temp_code = possible_code.map { |val| val }
+        comparison_result = []
 
-        exact_match(temp_code, hypoth_code, hypoth_guess, hypoth_result)
-        partial_match(temp_code, hypoth_code, hypoth_guess, hypoth_result)
-        hypoth_results.push(hypoth_result)
+        exact_match(temp_code, possible_code, possible_guess, comparison_result)
+        partial_match(temp_code, possible_code, possible_guess, comparison_result)
+        comparison_results.push(comparison_result)
       end
 
-      uniq_result_count = hypoth_results.reduce({}) do |obj, val|
-        obj[val] = 0 unless obj[val]
-        obj[val] += 1
-        obj
-      end
-
+      uniq_result_count = comparison_results.each_with_object(Hash.new(0)) { |val, obj| obj[val] += 1 }
       uniq_result_count = uniq_result_count.values.sort { |a, b| a < b ? 1 : 0 }
-      worst_case_scores[hypoth_code] = @possible_outcomes.length - uniq_result_count[0]
+      worst_case_scores[possible_code] = @possible_outcomes.length - uniq_result_count[0]
     end
 
     worst_case_scores.sort_by { |_obj, val| val }.reverse[0][0]
@@ -102,7 +97,7 @@ class ComputerBreaker < CodeBreaker
   # This method verifies if the Code Breaker won, then prints the respective announcement
   def win_eval
     @board.print_board
-    puts "\nMASTER CODE: #{@master_code.join('')}".cyan
+    puts "\nMASTER CODE: #{@master_code.join('')}\nCOMPUTER GUESSED: #{@guess.join}".cyan
 
     if @winner == true
       puts "\nYOU LOSE! THE COMPUTER HAS CRACKED THE MASTER CODE.".red
