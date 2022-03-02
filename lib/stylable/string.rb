@@ -32,10 +32,6 @@ module Stylable
       "\e[37m#{self}\e[0m"
     end
 
-    def bold
-      "\e[1m#{self}\e[22m"
-    end
-
     def italic
       "\e[3m#{self}\e[23m"
     end

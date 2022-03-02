@@ -5,7 +5,7 @@ module Instructions
   def introductions
     Stylable.clear_screen
     puts <<~INSTRUCTIONS_ONE
-      #{'WELCOME TO MASTERMIND!'.bold.underline}
+      #{'WELCOME TO MASTERMIND!'.underline.green}
 
       Mastermind is a code-breaking game between two players:
       1. Code Maker
@@ -69,7 +69,7 @@ module Instructions
   def breaker_instructions
     Stylable.clear_screen
     puts <<~HUMAN_BREAKER_INSTRUCTIONS
-      #{'THE COMPUTER HAS CREATED THE MASTER CODE'.bold.underline.red}
+      #{'THE COMPUTER HAS CREATED THE MASTER CODE'.underline.red}
 
       Remember:
         - The Master Code is a pattern of 4 Color Pegs

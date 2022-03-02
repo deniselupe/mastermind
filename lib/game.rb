@@ -15,30 +15,40 @@ class Game
 
   include Instructions
 
-  def play
+  def play_v1
     introductions
     @player_role = role_selector
     @guess_num = number_of_guesses
 
     case @player_role
-    when '1' then HumanBreaker.new(@guess_num).play
-    when '2' then ComputerBreaker.new(@guess_num).play
+    when '1' then ComputerBreaker.new(@guess_num).play
+    when '2' then HumanBreaker.new(@guess_num).play
+    end
+  end
+
+  def play_v2
+    @player_role = role_selector
+    @guess_num = number_of_guesses
+
+    case @player_role
+    when '1' then ComputerBreaker.new(@guess_num).play
+    when '2' then HumanBreaker.new(@guess_num).play
     end
   end
 
   def role_selector
     Stylable.clear_screen
     puts 'This game has two different player roles:'
-    puts "\t1. Play as the #{'CODE BREAKER'.green} to try and guess the randomly generated master code"
-    puts "\t2. Create the master code as the #{'CODE MAKER'.purple} and try to outsmart the NPC"
-    print "\nSelect your role (1 or 2): "
+    puts "\t1. Create the master code as the #{'CODE MAKER'.purple} and try to outsmart the NPC"
+    puts "\t2. Play as the #{'CODE BREAKER'.green} to try and guess the randomly generated master code"
+    print "\nSelect your role (1: #{'Code Maker'.purple}, 2: #{'Code Breaker'.green}): "
 
     until (role = gets.chomp).match?(/^[1-2]$/)
       Stylable.clear_screen
       puts 'This game has two different player roles:'
-      puts "\t1. Play as the #{'CODE BREAKER'.green} to try and guess the randomly generated master code"
-      puts "\t2. Create the master code as the #{'CODE MAKER'.purple} and try to outsmart the NPC"
-      print "\nInvalid option, please select your role (1: #{'Code Breaker'.green}, 2: #{'Code Maker'.purple}): "
+      puts "\t1. Create the master code as the #{'CODE MAKER'.purple} and try to outsmart the NPC"
+      puts "\t2. Play as the #{'CODE BREAKER'.green} to try and guess the randomly generated master code"
+      print "\nInvalid option, please select your role (1: #{'Code Maker'.purple}, 2: #{'Code Breaker'.green}): "
     end
 
     role
